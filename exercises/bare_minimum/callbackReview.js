@@ -23,20 +23,12 @@ var getStatusCode = function (url, callback) {
   // TODO
   request(url, function(error, response) {
     if (error) {
-      // console.log(error);
       callback(error);
     } else {
       callback(null, response.statusCode);
     }
   });
-  // request.get({
-  //   url: url,
-  //   type: 'GET',
-  //   success: () => {
-  //     callback(err, data.statusCode);
-  //   },
-  //   error: console.log('error on getting status code')
-  // });
+
 };
 
 // Export these functions so we can test them and reuse them in later exercises
