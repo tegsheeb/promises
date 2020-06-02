@@ -44,33 +44,35 @@ var generateRandomTokenAsync = Promise.promisify(generateRandomToken);
 // (3) Asyncronous file manipulation
 var readFileAndMakeItFunny = function(filePath, callback) {
   fs.readFile(filePath, 'utf8', function(err, file) {
-    if (err) { return callback(err); }
+    if (err) { return callback(err, null); }
 
     var funnyFile = file.split('\n')
       .map(function(line) {
         return line + ' lol';
       })
       .join('\n');
-    callback(funnyFile);
+    callback(null, funnyFile);
   });
 };
 
-var readFileAndMakeItFunnyAsync = function(filePath, callback) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, 'utf8', function (err, file) {
-      if (err) {
-        reject(err);
-      } else {
-        var funnyFile = file.split('\n')
-          .map(function (line) {
-            return line + ' lol';
-          })
-          .join('\n');
-        resolve(funnyFile);
-      }
-    });
-  });
-}; // TODO
+var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny);
+
+// var readFileAndMakeItFunnyAsync = function(filePath, callback) {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(filePath, 'utf8', function (err, file) {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         var funnyFile = file.split('\n')
+//           .map(function (line) {
+//             return line + ' lol';
+//           })
+//           .join('\n');
+//         resolve(funnyFile);
+//       }
+//     });
+//   });
+// }; // TODO
 
 
 
